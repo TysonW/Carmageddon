@@ -6,10 +6,10 @@
 //     Motor  Pi gpio
 #define AIN1     16
 #define AIN2     20
-#define BIN1     5
+#define BIN1     13
 #define BIN2     6
 #define PWMA     21
-#define PWMB     13
+#define PWMB     5
 
 //Motor speed settings
 #define FAST   160
