@@ -6,11 +6,13 @@
 #include <opencv2/opencv.hpp>
 #include "Comm.h"
 
-int main(){
+int main(int argc, char** argv){
 	Comm go;
 	Track cam;
+	
 	cam.start();
-	go.CommStart();	
+	
+	go.Menu();	
 	return 0; //Exit executable file
 }
 

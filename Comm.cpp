@@ -23,7 +23,7 @@ int Comm::Menu()
 		std::cin >> CMD; //Have to press enter to receive the command
 	
 		if (CMD == "e"){std::cout << "hi" << std::endl;}	//Autonomous mode
-		else if (CMD == "r"){ManDir();}						//Manual Mode
+		else if (CMD == "r"){ManDir();}						//Manual Mode	
 	}
 	return 0; //exit the Menu function
 }
@@ -87,7 +87,7 @@ void Comm::menu_thread(Comm* ptr)
 	while (ptr->_thread_exit == false)
 	{
 		cv::waitKey(100);
-		ptr-> Menu();
+		ptr-> ManDir();
 	}
 }
 

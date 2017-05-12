@@ -1,7 +1,10 @@
 #include <string> //string
 #include <iostream> //input and output
+#include <time.h> 
 #include "Motor.h" //Motor class
 #include "Track.h" //Track class
+
+typedef std::chrono::duration<int, std::ratio<1, 40>> frame_duration;
 
 class Comm
 {

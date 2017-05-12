@@ -25,7 +25,6 @@ private:
 	bool _thread_exit = 0; // thread safe?
 	static void update_thread(Track* ptr);
 	static void draw_thread(Track* ptr);
-	static void test_thread(Track* ptr);
 public:
 
 	/** @brief Constructor

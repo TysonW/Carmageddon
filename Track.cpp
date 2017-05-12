@@ -24,6 +24,8 @@
 
 #define White cv::Scalar(255, 255, 255) //colour blue in RGB formate -> (Blue, Green, Red)
 
+typedef std::chrono::duration<int, std::ratio<1, 40>> frame_duration;
+
 #define WIN4618
 using namespace std;
 
@@ -55,15 +57,10 @@ void Track::update()
 	//start clock
 	start_tic = cv::getTickCount();
 	
-	std::cout << "hello" << std::endl;
-	
-	while (canvas.empty())
-	{
 	vid >> canvas;
-	std::cout << "hi" << std::endl;
-	}
-	cv::cvtColor(canvas, HSV, cv::COLOR_BGR2HSV); //convert to hsv
 	
+	//convert to HSV
+	cv::cvtColor(canvas, HSV, cv::COLOR_BGR2HSV);
 
 	//appy mask
 	cv::inRange(HSV, RED_lower_bound, RED_upper_bound, RedMat);
@@ -115,56 +112,53 @@ void Track::update()
 
 void Track::draw()
 {
-	
-	//display fsp on canvas
-	string fsp = to_string(elapsed_time);
-	cv::putText(canvas, fsp, cv::Point(fspX, fspY), cv::FONT_HERSHEY_COMPLEX_SMALL, fontsize_fps, White, 1);
-	
-	//display canvas
-	cv::imshow("Image", canvas);
+	while(canvas.empty())
+	{
+		//display fsp on canvas
+		string fsp = to_string(elapsed_time);
+		cv::putText(canvas, fsp, cv::Point(fspX, fspY), cv::FONT_HERSHEY_COMPLEX_SMALL, fontsize_fps, White, 1);
+	}
+		//display canvas
+		cv::imshow("Image", canvas);
 
-	cv::waitKey(1);
+		cv::waitKey(1);
 }
 
 
 void Track::start()
 {
-	std::thread t2(&Track::test_thread,this);
+	std::thread t1(&Track::update_thread,this);
+	std::thread t2(&Track::draw_thread,this);
+	t1.detach();
 	t2.detach();
+
 }
 
 void Track::update_thread(Track* ptr)
 {
-	/*while (ptr->_thread_exit == false)
+	while (ptr->_thread_exit == false)
 	{
 		cv::waitKey(100);
 		ptr->update();
-	}*/
+	}
 }
 
 void Track::draw_thread(Track* ptr)
 {
-	/*while (ptr->_thread_exit == false)
-	{
-		cv::waitKey(100);
-		ptr->draw();
-	}*/
-}
-
-void Track::TestCam()
-{
-
-	update();
-	draw();
-
-}
-
-void Track::test_thread(Track* ptr)
-{
 	while (ptr->_thread_exit == false)
 	{
 		cv::waitKey(100);
-		ptr-> TestCam();
+		ptr->draw();
 	}
 }
+void Track::TestCam()
+{
+	do{
+		update();
+		draw();
+	}while(cv::waitKey(10) != ' ');
+
+		
+}
+
 
