@@ -1,0 +1,118 @@
+/*
+int Comm :: AutoDir()
+{
+	
+	//start with moving forward to get within range
+	go.FORWARD(MED, MED);
+	sleep(1);
+	go.FORWARD(FAST, FAST);
+	
+	while(CMD != "q")
+	{
+		Red_Dist = 1000;
+		//Green 
+		while( (Green_Dist > 130) || (Red_Dist > 500))
+		{    
+			std::cout << "Center of Green" << Green_Ctr <<std::endl;
+			 //update distance check
+			  Green_Dist = cam.CheckGreen();
+			Green_Ctr = cam.Check_G_Cent();
+			 //keep moving forward fast
+			 go.FORWARD(FAST, FAST);
+			 
+			 
+			 //turning option
+			 if( Green_Dist <= 130)
+			 {
+				std::cout << "Turning Right" << std::endl;
+			   go.STOP(); 
+			   go.RIGHT(FAST);
+			   sleep(0.5);
+		
+			 }	
+			 
+			  //check if too far to the left
+			 if(Green_Ctr > RIGHTBOUND )
+			 { 
+			   while(Green_Ctr > RIGHTBOUND && Green_Dist > 130)
+			   {
+				std::cout << "Update Right" << std::endl;
+				  Green_Ctr = cam.Check_G_Cent();
+				  go.FORWARD(FAST, FAST - ADJUST ); 
+				Green_Dist = cam.CheckGreen(); 
+				 // sleep(0.5); 
+			   }			 
+		     }//end Rightbound check
+		     
+		     //check if too far to the right
+			 if(Green_Ctr < LEFTBOUND)
+			 {
+				Green_Dist = cam.CheckGreen();	 
+			   while(Green_Ctr < LEFTBOUND && Green_Dist > 130 )
+			   {
+				std::cout << "Update Left" << std::endl;
+				  Green_Ctr = cam.Check_G_Cent();
+				  go.FORWARD(FAST- ADJUST , FAST ); 
+				 // sleep(0.5); 
+				Green_Dist = cam.CheckGreen(); 
+			   }			 
+		     }//end Rightbound check
+		     
+		} //end green
+		
+		//set green Dist to dummy
+		Green_Dist = 1000;
+		
+			//Red control loop
+		while( (Red_Dist > 130) || (Green_Dist > 500))
+		{    
+			 //update distance check
+			  Red_Dist = cam.CheckRed();
+			  //update center pos check
+			  Red_Ctr = cam.Check_R_Cent();
+			 //keep moving forward fast
+			 go.FORWARD(FAST, FAST);
+			 
+			 
+			 //turning option
+			 if( Red_Dist <= 130)
+			 {
+				std::cout << "Turning Left" << std::endl;
+			   go.STOP(); 
+			   go.LEFT(MED);
+			   sleep(2.5);
+			 }	
+			 
+			 //check if too far to the left
+			 if(Red_Ctr > RIGHTBOUND )
+			 {
+				 
+			   while(Red_Ctr > RIGHTBOUND)
+			   {
+				std::cout << "Update Right" << std::endl;
+				  Red_Ctr = cam.Check_R_Cent();
+				  go.FORWARD(FAST, FAST - ADJUST ); 
+				  sleep(0.5); 
+			   }			 
+		     }//end Rightbound check
+		     
+		     //check if too far to the right
+			 if(Red_Ctr < LEFTBOUND )
+			 {
+				 
+			   while(Red_Ctr < LEFTBOUND )
+			   {
+					std::cout << "Update Left" << std::endl;
+				  Red_Ctr = cam.Check_R_Cent();
+				  go.FORWARD(FAST- ADJUST , FAST ); 
+				  sleep(0.5); 
+			   }			 
+		     }//end Rightbound check
+		     
+		} //end red
+		
+	std::cin >> CMD;	
+    	}//end infinite loop
+	return 0;
+
+}*/
